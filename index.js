@@ -10,7 +10,7 @@ class Pokemon {
     return $.get(`https://pokeapi.co/api/v2/pokemon/${numOrName}`).
     then((pokemon) => {
       var sprite = `https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/${pokemon.name}.gif`
-      var poke = new Pokemon(pokemon.id, pokemon.name, pokemon.types, sprite)
+      return new Pokemon(pokemon.id, pokemon.name, pokemon.types, sprite)
     })
   }
 }
@@ -21,6 +21,15 @@ $(function() {
   $(".pokeSubmit").on("click", function() {
     event.preventDefault()
     var input = $("#numOrName").val()
-    var pokemon = Pokemon.find(input)
+    Pokemon.find(input).
+    then(function(pokemon){
+      $('.container').find('.pokemon:empty:first').html("<img src=" + pokemon.sprite + "><a href='#' onclick='removePokemon(this)'>X</a>")
+    })
   })
 })
+
+function removePokemon(pokemon) {
+  let i = pokemon
+  $(i).parent().empty()
+
+}
