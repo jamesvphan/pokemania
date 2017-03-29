@@ -66,7 +66,7 @@ $(function() {
       } else {
         var div = 'matchup'
       }
-      let a_tag = `<a href='#' data-toggle="popover" data-placement="bottom" title="Popover title" data-content="Popover on bottom." onmouseover="pokemonInfo()" data-pokemon-name='${pokemon.name}' data-roster=${div} onclick="removePokemon(this)">`
+      let a_tag = `<a href='#' data-toggle="popover" data-placement="bottom" title='${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} Stats' data-content="Popover on bottom." onmouseover="pokemonInfo()" data-pokemon-name='${pokemon.name}' data-roster=${div} onclick="removePokemon(this)">`
 
       $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
     })
@@ -119,12 +119,12 @@ function pokeBattle() {
 }
 
  function pokemonInfo() {
-   $(document).ready(function() {
+   //$(document).ready(function() {
      $('[data-toggle="popover"]').popover({
          placement : 'top',
          trigger: 'hover'
        })
-   })
+   //})
 //   return $.get(`https://pokeapi.co/api/v2/pokemon/${name}`).
 //     then((pokemon)=>{
 //       let poke_types = pokemon.types.map(function(type_obj){
