@@ -88,7 +88,11 @@ $(function() {
         } else {
           var div = 'matchup'
         }
-        let a_tag = `<a href='#' data-toggle="popover" data-placement="bottom" title='${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} Stats' data-content="Popover on bottom." onmouseover="pokemonInfo(this, '${pokemon.name}' )" data-pokemon-name='${pokemon.name}' data-roster=${div} onclick="removePokemon(this)">`
+        let data_attr = `data-team="${div}" data-toggle="popover" data-html="true" data-placement="bottom" data-content="" data-pokemon-name='${pokemon.name}' data-roster=${div}`
+        let title = `title=${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}`
+        let events = `onclick="pokemonInfo(this, '${pokemon.name}')" `
+
+        let a_tag = `<a href='#' ${data_attr} ${title} ${events}>`
         $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
       })
     }
@@ -114,7 +118,6 @@ function removePokemon(poke_element) {
   }
   $(poke_element).parent().empty()
 }
-
 
 function pokeBattle() {
   var result = []
@@ -179,6 +182,7 @@ function pokeBattle() {
 
 
 function pokemonInfo(element, name) {
+  let position
   let pokemon = allPokes.find(function(ele) {
     return ele.name == name
   })
@@ -188,17 +192,21 @@ function pokemonInfo(element, name) {
   let poke_stats = pokemon.stats.map(function(stat_obj){
     return `${stat_obj.stat.name}: ${stat_obj.base_stat}`
   })
-  $('[data-toggle="popover"]').attr("data-content", `${poke_types}\n\n${poke_stats.join("\n\n")}`)
+  if (element.dataset.team === "pokemon") {
+    position = "left"
+  } else {
+    position = "right"
+  }
   $('[data-toggle="popover"]').popover({
-    placement : 'top',
-    trigger: 'hover'
+    placement : "left",
+    trigger: 'click',
+    animation: true,
+    template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-footer"><a href="#" class="btn btn-info btn-sm">Evolve!</a></div></div>'
    })
+  $('[data-toggle="popover"]').attr("data-content", `Type: ${poke_types.join(", ")}<br>${poke_stats.join("<br>")}`)
+
 }
 
-function pokemonInfo2() {
- //$(document).ready(function() {
- $('[data-toggle="popover"]').popover({
-   placement : 'top',
-   trigger: 'hover'
-  })
- }
+$(document).on("click", ".popover-footer .btn" , function(){
+  $(this).parents(".popover").popover('hide');
+});

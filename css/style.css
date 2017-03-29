@@ -15,3 +15,10 @@ h3 {
 .container {
   padding-bottom: 10px;
 }
+
+.popover-footer{
+  padding: 6px 14px;
+  background-color: #f7f7f7;
+  border-top: 1px solid #ebebeb;
+  text-align: right;
+}
