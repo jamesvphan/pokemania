@@ -8,28 +8,33 @@
   </head>
   <body>
     <h1>
-      <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
-      HI!
-      <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
+      <div class="col-sm-12 text-center">
+        <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
+        HI!
+        <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
+      </div>
     </h1>
     <h3>Search and Add a Pokemon by Name or Number </h3>
     <div class="container">
-      <div class="col-sm-6 text-center">
+      <div class="col-sm-12 text-center">
         <input type="text" name="numOrName" id="numOrName"><br>
         <p>Add Pokemon to:</p>
-        <button class="pokeSubmit" id="1">your roster</button>
-        <button class="pokeSubmit" id="2">enemy roster</button>
-      </div>>
+        <button class="pokeSubmit btn btn-primary" id="1">Your Roster</button>
+        <button class="pokeSubmit btn btn-primary" id="2">Enemy Roster</button> <br> <br>
+        <button class="btn btn-danger" onclick='pokeBattle()'>Calculate Matchup!</button>
+        <a data-toggle="popover" data-placement="bottom" title="Popover title" data-content="Popover on bottom."><img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/lugia.gif"></a>
+
+      </div>
     </div>
-    <a href='#' onclick='pokeBattle()'>Calculate Matchup!</a>
+
 
     <table class="container">
       <tr>
         <th class="col-sm-6 text-center">Your Team</th>
         <th class="col-sm-6 text-center">Opponent's Team</th>
       </tr>
-      <tr>
-        <td><div class="pokemon"><div class="info" style="display: none"></div></div></td>
+      <tr><!--<div class="info" style="display: none"></div> -->
+        <td><div class="pokemon"></div></td>
         <td><div class="matchup"></div></td>
       </tr>
       <tr>
@@ -55,6 +60,7 @@
     </table>
   </body>
   <script src="jquery-3.1.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="index.js">
   </script>
 </html>
