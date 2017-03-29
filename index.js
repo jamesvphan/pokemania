@@ -1,11 +1,12 @@
-const numTypes = 18
-const allTypes = []
+ const numTypes = 18
+ const allTypes = []
 Array.from({length:numTypes},(v,k)=>k+1).map(function(number) {
   return $.get(`https://pokeapi.co/api/v2/type/${number}/`).
   then((typeData) => {
     allTypes.push(typeData)
   })
 })
+console.log("Done Loading Types")
 
 class Pokemon {
   constructor(number, name, types, sprite, team, weak_to, not_weak_to) {
@@ -65,16 +66,31 @@ $(function() {
       } else {
         var div = 'matchup'
       }
-      let a_tag = `<a href='#' data-pokemon-name='${pokemon.name}' onmouseover='pokemonInfo(this, "${pokemon.name}")' onclick="removePokemon(this)">`
+      let a_tag = `<a href='#' data-toggle="popover" data-placement="bottom" title='${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} Stats' data-content="Popover on bottom." onmouseover="pokemonInfo()" data-pokemon-name='${pokemon.name}' data-roster=${div} onclick="removePokemon(this)">`
+
       $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
     })
   })
 })
 
 
-function removePokemon(pokemon) {
-  let i = pokemon
-  $(i).parent().empty()
+function removePokemon(poke_element) {
+  let el = poke_element
+  let poke_obj = {};
+  if (poke_element.dataset.roster === "pokemon") {
+    poke_obj.pokemon = your_roster.find(function(pokemon, index) {
+      poke_obj.index = index
+      return pokemon.name === el.dataset.pokemonName
+    })
+    your_roster.splice(poke_obj.index, 1)
+  } else {
+    poke_obj.pokemon = enemy_roster.find(function(pokemon, index) {
+      poke_obj.index = index
+      return pokemon.name === el.dataset.pokemonName
+    })
+    enemy_roster.splice(poke_obj.index, 1)
+  }
+  $(poke_element).parent().empty()
 }
 
 
@@ -102,26 +118,22 @@ function pokeBattle() {
   console.log(result)
 }
 
-function pokemonInfo(element, name) {
-  return $.get(`https://pokeapi.co/api/v2/pokemon/${name}`).
-    then((pokemon)=>{
-      let poke_types = pokemon.types.map(function(type_obj){
-        return type_obj.type.name
-      })
-      let poke_stats = pokemon.stats.map(function(stat_obj){
-        return `${stat_obj.stat.name}: ${stat_obj.base_stat}`
-      })
-      $('.info').html(`${poke_types}\n${poke_stats.join("\n")}`)
-      $('.info').css("display", "block")
-  })
+ function pokemonInfo() {
+   //$(document).ready(function() {
+     $('[data-toggle="popover"]').popover({
+         placement : 'top',
+         trigger: 'hover'
+       })
+   //})
+//   return $.get(`https://pokeapi.co/api/v2/pokemon/${name}`).
+//     then((pokemon)=>{
+//       let poke_types = pokemon.types.map(function(type_obj){
+//         return type_obj.type.name
+//       })
+//       let poke_stats = pokemon.stats.map(function(stat_obj){
+//         return `${stat_obj.stat.name}: ${stat_obj.base_stat}`
+//       })
+//       $('.info').html(`${poke_types}\n${poke_stats.join("\n")}`)
+//       $('.info').css("display", "block")
+//   })
 }
-
-// function pokeCompare() {
-//
-// }
-
-//epoke.weak_to.push(0)
-// for (var k = 0; k < enemy_roster.length; k++) {
-//   var epoke = enemy_roster[k]
-//   for (var l = 0; l < epoke.types.length; l++) {
-//     var etype = epoke.types[l]
