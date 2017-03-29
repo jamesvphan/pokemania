@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-    <h1>HI!</h1>
+    <h1>
+      <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
+      HI!
+      <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
+    </h1>
     <h3>Search and Add a Pokemon by Name or Number </h3>
     <div class="container">
       <div class="col-sm-6 text-center">
-        <input type="text" name="numOrName" id="numOrName1"><br>
+        <input type="text" name="numOrName" id="numOrName"><br>
         <button class="pokeSubmit" id="1">Add Pokemon</button>
-      </div>
-      <div class="col-sm-6 text-center">
-        <input type="text" name="numOrName" id="numOrName2"><br>
         <button class="pokeSubmit" id="2">Add Pokemon</button>
-      </div>
+      </div>>
     </div>
+    <a href='#' onclick='pokeBattle()'>Calculate Matchup!</a>
 
     <table class="container">
       <tr>
@@ -51,8 +53,6 @@
         <td><div class="matchup"></div></td>
       </tr>
     </table>
-
-
   </body>
   <script src="jquery-3.1.0.min.js"></script>
   <script src="index.js">
