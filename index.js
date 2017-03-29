@@ -7,10 +7,6 @@ Array.from({length:numTypes},(v,k)=>k+1).map(function(number) {
   })
 })
 
-allTypes.filter(function(type) {
-  return type.name == "ghost"
-})[0]
-
 class Pokemon {
   constructor(number, name, types, sprite, team, weak_to, not_weak_to) {
     this.number = number,
