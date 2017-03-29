@@ -20,10 +20,17 @@ var roster = []
 $(function() {
   $(".pokeSubmit").on("click", function() {
     event.preventDefault()
-    var input = $("#numOrName").val()
+    if (this.id === "1") {
+      var input = $("#numOrName1").val()
+      var div = "pokemon"
+    } else {
+      var input = $("#numOrName2").val()
+      var div = "matchup"
+    }
     Pokemon.find(input).
     then(function(pokemon){
-      $('.container').find('.pokemon:empty:first').html("<img src=" + pokemon.sprite + "><a href='#' onclick='removePokemon(this)'>X</a>")
+      let a_tag = `<a href='#' data-pokemon-name='${pokemon.name}' onmouseover='pokemonInfo(this, "${pokemon.name}")' onclick="removePokemon(this)">`
+      $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
     })
   })
 })
@@ -31,5 +38,18 @@ $(function() {
 function removePokemon(pokemon) {
   let i = pokemon
   $(i).parent().empty()
+}
 
+function pokemonInfo(element, name) {
+  return $.get(`https://pokeapi.co/api/v2/pokemon/${name}`).
+    then((pokemon)=>{
+      let poke_types = pokemon.types.map(function(type_obj){
+        return type_obj.type.name
+      })
+      let poke_stats = pokemon.stats.map(function(stat_obj){
+        return `${stat_obj.stat.name}: ${stat_obj.base_stat}`
+      })
+      $('.info').html(`${poke_types}\n${poke_stats.join("\n")}`)
+      $('.info').css("display", "block")
+  })
 }
