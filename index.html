@@ -5,8 +5,21 @@
     <title>PokeMatchUp</title>
   </head>
   <body>
-    <h1>HI!</h1>
+    <h1>
+      <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
+      HI!
+      <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
+    </h1>
     <h3>Add a Pokemon to your roster!</h3>
+    <p>Search by Pokemon Name or Number:</p>
+    <div syle="display:inline-block">
+      <form>
+        <input type="text" name="numOrName" id="numOrName"><br>
+        <button class="pokeSubmit" id="1">Add Your Pokemon</button>
+        <button class="pokeSubmit" id="2">Add Enemy Pokemon</button>
+      </form>
+    </div>
+    <a href='#' onclick='pokeBattle()'>Calculate Matchup!</a>
     <table class="container">
       <tr>
         <th>Pokemon</th>
@@ -61,12 +74,6 @@
         </td>
       </tr>
     </table>
-
-    <form>
-      Search by Pokemon Name or Number:<br>
-      <input type="text" name="numOrName" id="numOrName"><br>
-      <button class="pokeSubmit">Add Pokemon</button>
-    </form>
   </body>
   <script src="jquery-3.1.0.min.js"></script>
   <script src="index.js">
