@@ -1,11 +1,12 @@
-const numTypes = 18
-const allTypes = []
+ const numTypes = 18
+ const allTypes = []
 Array.from({length:numTypes},(v,k)=>k+1).map(function(number) {
   return $.get(`https://pokeapi.co/api/v2/type/${number}/`).
   then((typeData) => {
     allTypes.push(typeData)
   })
 })
+console.log("Done Loading Types")
 
 class Pokemon {
   constructor(number, name, types, stats, sprite, team, weak_to, not_weak_to, super_effective, not_very_effective) {
@@ -88,7 +89,7 @@ $(function() {
         } else {
           var div = 'matchup'
         }
-        let a_tag = `<a href='#' data-pokemon-name='${pokemon.name}' onmouseover='pokemonInfo(this, "${pokemon.name}")' onclick="removePokemon(this)">`
+        let a_tag = `<a href='#' data-toggle="popover" data-placement="bottom" title='${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} Stats' data-content="Popover on bottom." onmouseover="pokemonInfo()" data-pokemon-name='${pokemon.name}' data-roster=${div} onclick="removePokemon(this)">`
         $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
       })
     }
@@ -96,9 +97,23 @@ $(function() {
 })
 
 
-function removePokemon(pokemon) {
-  let i = pokemon
-  $(i).parent().empty()
+function removePokemon(poke_element) {
+  let el = poke_element
+  let poke_obj = {};
+  if (poke_element.dataset.roster === "pokemon") {
+    poke_obj.pokemon = your_roster.find(function(pokemon, index) {
+      poke_obj.index = index
+      return pokemon.name === el.dataset.pokemonName
+    })
+    your_roster.splice(poke_obj.index, 1)
+  } else {
+    poke_obj.pokemon = enemy_roster.find(function(pokemon, index) {
+      poke_obj.index = index
+      return pokemon.name === el.dataset.pokemonName
+    })
+    enemy_roster.splice(poke_obj.index, 1)
+  }
+  $(poke_element).parent().empty()
 }
 
 
@@ -163,6 +178,7 @@ function pokeBattle() {
   console.log(result)
 }
 
+
 function pokemonInfo(element, name) {
   let pokemon = allPokes.find(function(ele) {
     return ele.name == name
@@ -176,3 +192,11 @@ function pokemonInfo(element, name) {
   $('.info').html(`${poke_types}\n${poke_stats.join("\n")}`)
   $('.info').css("display", "block")
 }
+
+function pokemonInfo2() {
+ //$(document).ready(function() {
+ $('[data-toggle="popover"]').popover({
+   placement : 'top',
+   trigger: 'hover'
+  })
+ }
