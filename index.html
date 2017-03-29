@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>PokeMatchUp</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
     <h1>
@@ -10,68 +13,44 @@
       HI!
       <img src="https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/clefairy.gif">
     </h1>
-    <h3>Add a Pokemon to your roster!</h3>
-    <p>Search by Pokemon Name or Number:</p>
-    <div syle="display:inline-block">
-      <form>
+    <h3>Search and Add a Pokemon by Name or Number </h3>
+    <div class="container">
+      <div class="col-sm-6 text-center">
         <input type="text" name="numOrName" id="numOrName"><br>
-        <button class="pokeSubmit" id="1">Add Your Pokemon</button>
-        <button class="pokeSubmit" id="2">Add Enemy Pokemon</button>
-      </form>
+        <button class="pokeSubmit" id="1">Add Pokemon</button>
+        <button class="pokeSubmit" id="2">Add Pokemon</button>
+      </div>>
     </div>
     <a href='#' onclick='pokeBattle()'>Calculate Matchup!</a>
+
     <table class="container">
       <tr>
-        <th>Pokemon</th>
-        <th>Matchup</th>
+        <th class="col-sm-6 text-center">Your Team</th>
+        <th class="col-sm-6 text-center">Opponent's Team</th>
       </tr>
       <tr>
-        <td>
-          <div class="pokemon"></div>
-        </td>
-        <td>
-          <div class="matchup"></div>
-        </td>
+        <td><div class="pokemon"><div class="info" style="display: none"></div></div></td>
+        <td><div class="matchup"></div></td>
       </tr>
       <tr>
-        <td>
-          <div class="pokemon"></div>
-        </td>
-        <td>
-          <div class="matchup"></div>
-        </td>
+        <td><div class="pokemon"></div></td>
+        <td><div class="matchup"></div></td>
       </tr>
       <tr>
-        <td>
-          <div class="pokemon"></div>
-        </td>
-        <td>
-          <div class="matchup"></div>
-        </td>
+        <td><div class="pokemon"></div></td>
+        <td><div class="matchup"></div></td>
       </tr>
       <tr>
-        <td>
-          <div class="pokemon"></div>
-        </td>
-        <td>
-          <div class="matchup"></div>
-        </td>
+        <td><div class="pokemon"></div></td>
+        <td><div class="matchup"></div></td>
       </tr>
       <tr>
-        <td>
-          <div class="pokemon"></div>
-        </td>
-        <td>
-          <div class="matchup"></div>
-        </td>
+        <td><div class="pokemon"></div></td>
+        <td><div class="matchup"></div></td>
       </tr>
       <tr>
-        <td>
-          <div class="pokemon"></div>
-        </td>
-        <td>
-          <div class="matchup"></div>
-        </td>
+        <td><div class="pokemon"></div></td>
+        <td><div class="matchup"></div></td>
       </tr>
     </table>
   </body>
