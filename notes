@@ -49,7 +49,21 @@ venusaurYO is super effective against venusaurEN!         x
 
 Models
 Trainer Model
+-name
+-team of Pokemon [Pokemon, Pokemon, Pokemon, Pokemon, Pokemon, Pokemon,]
 
 Pokemon Model
+-number
+-name
+-types [Type, Type]
+-stats [One Stat Object]
+-sprite
+-team
+  -weak_to [Type string, Type, string]
+  -not_weak_to
+  -super_effective
+  -not_very_effective
+
 
 Type Model
+-name

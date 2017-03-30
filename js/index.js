@@ -1,6 +1,6 @@
 $(document).on({
     ajaxStart: function() { $("body").addClass("loading");    },
-     ajaxStop: function() { $("body").removeClass("loading"); }
+    ajaxStop: function() { $("body").removeClass("loading"); }
 });
 
 const numTypes = 18
@@ -91,33 +91,6 @@ $(function() {
   })
 })
 
-
-
-function pokemonInfo(element, name) {
-  let pokemon = allPokes.find(function(ele) {
-    return ele.name == name
-  })
-  var results = pokeBattle()
-  var matches = jQuery.unique(results[0]).filter(function(ele) {
-    return ele.includes(name)
-  }).sort()
-  let poke_types = pokemon.types.map(function(type_obj){
-    return type_obj.name
-  })
-  let poke_stats = pokemon.stats.map(function(stat_obj){
-    return `<strong>${stat_obj.stat.name}:</strong> ${stat_obj.base_stat}`
-  })
-  $('[data-toggle="popover"]').attr("data-content", `<strong>Types:</strong> ${poke_types.join(", ")}<br>
-                                                    ${poke_stats.join("<br>")}<br>
-                                                    ${matches.join("<br>")}`)
-  $('[data-toggle="popover"]').popover({
-    placement : 'top',
-    trigger: 'hover'
-   })
-}
-
-
-
 // method that takes <a> element as argument, and removes element from page
 function removePokemon(poke_element) {
   let el = poke_element
@@ -137,7 +110,6 @@ function removePokemon(poke_element) {
   }
   $(poke_element).parent().empty()
 }
-
 
 // function that returns matchups of both teams of pokemon
 function pokeBattle() {
@@ -211,7 +183,6 @@ function pokeBattle() {
   return results
 }
 
-
 function removeDuplicates(pokemon) {
   pokemon.weak_to = jQuery.unique(pokemon.weak_to)
   pokemon.not_weak_to = jQuery.unique(pokemon.not_weak_to)
@@ -262,29 +233,33 @@ function grabPokemon(name) {
 
 // takes <a> element and name from <a> element, and makes request to return stats of pokemon
 function pokemonInfo(element, name) {
-  let position
   let pokemon = grabPokemon(name)
-
+  var results = pokeBattle()
+  var matches = jQuery.unique(results[0]).filter(function(ele) {
+    return ele.includes(name)
+  }).sort()
   let poke_types = pokemon.types.map(function(type_obj){
     return type_obj.name
   })
   let poke_stats = pokemon.stats.map(function(stat_obj){
-    return `${stat_obj.stat.name}: ${stat_obj.base_stat}`
+    return `<strong>${stat_obj.stat.name}:</strong> ${stat_obj.base_stat}`
   })
-  if (element.dataset.team === "pokemon") {
-    position = "left"
-  } else {
-    position = "right"
-  }
   $('[data-toggle="popover"]').popover({
     placement : "top",
     trigger: 'click',
     animation: true,
     template: `<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-footer"><a href="#" data-team=${element.dataset.team} data-pokemon-name=${name} class="btn evolve btn-primary btn-sm">Evolve!</a><a href="#" class="btn exit btn-danger btn-sm">Remove</a></div></div>`
    })
-  $('[data-toggle="popover"]').attr("data-content", `Type: ${poke_types.join(", ")}<br>${poke_stats.join("<br>")}`)
+  $('[data-toggle="popover"]').attr("data-content", `${createTypeElement(poke_types)}
+  <br>${poke_stats.join("<br>")}`)
 }
 
+// takes in an array of types and creates span elements to be displayed in the popup
+function createTypeElement(types) {
+  return types.map(function(type){
+    return `<span class="type ${type} left">${type}</span>`
+  }).join("")
+}
 // takes pokemon_obj and creates <a> element with attributes from pokemon_obj to be displayed on page
 function createPokemonLink(pokemon_obj) {
   if (pokemon_obj.team == "pokemon"){
