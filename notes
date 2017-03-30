@@ -2,4 +2,46 @@ todo:
   display pokemon battle info
     - in each pokemon table div?
     - in separate table?
-    
+
+
+blastoiseEN is not very effective against blastoiseYO!    ok
+blastoiseEN is not very effective against charizardYO!    x
+blastoiseEN is not very effective against venusaurYO!     ok
+blastoiseYO is super effective against blastoiseEN!       x
+blastoiseYO is super effective against charizardEN!       ok
+blastoiseYO is super effective against venusaurEN!        x
+charizardEN is not very effective against blastoiseYO!    ok
+charizardEN is not very effective against charizardYO!    ok
+charizardEN is super effective against venusaurYO!        ok
+charizardYO is super effective against venusaurEN!        ok
+venusaurEN is not very effective against blastoiseYO!     x
+venusaurEN is not very effective against charizardYO!     ok
+venusaurEN is not very effective against venusaurYO!      ok
+venusaurYO is super effective against blastoiseEN!        ok
+venusaurYO is super effective against venusaurEN!         x
+
+
+// for (var i = 0; i < pokemon.weak_to.length; i ++) {
+//   var pweak = pokemon.weak_to[i]
+//   for (var j = 0; j < pokemon.not_weak_to.length; j++) {
+//     var pnweak = pokemon.not_weak_to[j]
+//     if (pweak == pnweak) {
+//       pokemon.weak_to.splice(i, 1)
+//       i--
+//       pokemon.not_weak_to.splice(j, 1)
+//       j--
+//     }
+//   }
+// }
+// for (var i = 0; i < pokemon.super_effective.length; i ++) {
+//   var peff = pokemon.super_effective[i]
+//   for (var j = 0; j < pokemon.not_very_effective.length; j++) {
+//     var pneff = pokemon.not_very_effective[j]
+//     if (peff == pneff) {
+//       pokemon.super_effective.splice(i, 1)
+//       i--
+//       pokemon.not_very_effective.splice(j, 1)
+//       j--
+//     }
+//   }
+// }
