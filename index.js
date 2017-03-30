@@ -67,6 +67,7 @@ var your_roster = []
 var enemy_roster = []
 var allPokes = []
 
+// On clicking button to add pokemon, creates a new Pokemon object, and displays respective <a> element
 $(function() {
   $(".pokeSubmit").on("click", function() {
     event.preventDefault()
@@ -101,6 +102,7 @@ $(function() {
 
 })
 
+// method that takes <a> element as argument, and removes element from page
 function removePokemon(poke_element) {
   let el = poke_element
   let poke_obj = {};
@@ -120,6 +122,7 @@ function removePokemon(poke_element) {
   $(poke_element).parent().empty()
 }
 
+// function that returns matchups of both teams of pokemon
 function pokeBattle() {
   var result = []
   for (var i = 0; i < your_roster.length; i++) {
@@ -180,12 +183,14 @@ function pokeBattle() {
   console.log(result)
 }
 
+// takes pokemon name and returns Pokemon object from allPokes array
 function grabPokemon(name) {
   return allPokes.find(function(pokemon) {
     return pokemon.name == name
   })
 }
 
+// takes <a> element and name from <a> element, and makes request to return stats of pokemon
 function pokemonInfo(element, name) {
   let position
   let pokemon = grabPokemon(name)
@@ -210,6 +215,7 @@ function pokemonInfo(element, name) {
 
 }
 
+// takes pokemon_obj and creates <a> element with attributes from pokemon_obj to be displayed on page
 function createPokemonLink(pokemon_obj) {
   if (pokemon_obj.team == "pokemon"){
     var div = 'pokemon'
@@ -224,10 +230,12 @@ function createPokemonLink(pokemon_obj) {
   $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon_obj.sprite + "></a>")
 }
 
+// on popover, calls removePokemon if remove button is clicked
 $(document).on("click", ".popover-footer .btn.exit", function(){
   removePokemon($(this).parent().parent().parent().children()[0])
 });
 
+// on popover, "evolves" pokemon by replacing current Pokemon with evolved form, using evo obj as reference to pokemon evolution chains
 $(document).on("click", ".popover-footer .btn.evolve" , function(){
   // find the pokemon in all Pokes
   var old_pokemon = grabPokemon($(this)[0].dataset.pokemonName)
