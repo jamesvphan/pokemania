@@ -95,8 +95,10 @@ $(function() {
         let a_tag = `<a href='#' ${data_attr} ${title} ${events}>`
         $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
       })
+      $("#numOrName").val('')
     }
   })
+
 })
 
 function removePokemon(poke_element) {
@@ -223,9 +225,7 @@ function createPokemonLink(pokemon_obj) {
 }
 
 $(document).on("click", ".popover-footer .btn.exit", function(){
-  //debugger
   removePokemon($(this).parent().parent().parent().children()[0])
-//  $(this).parents(".popover").popover('hide');
 });
 
 $(document).on("click", ".popover-footer .btn.evolve" , function(){
@@ -234,7 +234,7 @@ $(document).on("click", ".popover-footer .btn.evolve" , function(){
   // find the next evolution
   if (evo[old_pokemon.name] == undefined) {
     // if pokemon evolution doesn't exist
-    alert(`${old_pokemon.name} does not evolve anymore.`)
+    alert(`${old_pokemon.name[0].toUpperCase() + old_pokemon.name.slice(1)} does not evolve anymore.`)
   } else {
     // if pokemon exists
     if (evo[old_pokemon.name].length > 1) {
