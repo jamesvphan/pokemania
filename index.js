@@ -89,6 +89,8 @@ $(function() {
       $("#numOrName").val('')
     }
   })
+})
+
 
 
 function pokemonInfo(element, name) {
@@ -275,7 +277,7 @@ function pokemonInfo(element, name) {
     position = "right"
   }
   $('[data-toggle="popover"]').popover({
-    placement : "left",
+    placement : "top",
     trigger: 'click',
     animation: true,
     template: `<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-footer"><a href="#" data-team=${element.dataset.team} data-pokemon-name=${name} class="btn evolve btn-primary btn-sm">Evolve!</a><a href="#" class="btn exit btn-danger btn-sm">Remove</a></div></div>`
