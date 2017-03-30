@@ -21,13 +21,11 @@
         <p>Add Pokemon to:</p>
         <button class="pokeSubmit btn btn-primary" id="1">Your Roster</button>
         <button class="pokeSubmit btn btn-primary" id="2">Enemy Roster</button> <br> <br>
-        <button class="btn btn-danger" onclick='pokeBattle()'>Calculate Matchup!</button>
-
+        <button id="dispBattle" class="btn btn-danger" data-target="#myModal"><em><strong>Battle</strong></em></button>
       </div>
     </div>
 
-
-    <table class="container">
+    <table class="container" id="pokeTable">
       <tr>
         <th class="col-sm-6 text-center">Your Team</th>
         <th class="col-sm-6 text-center">Opponent's Team</th>
@@ -57,6 +55,22 @@
         <td><div class="matchup"></div></td>
       </tr>
     </table>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">All Matchups</h4>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal"></div>
+
   </body>
   <script src="jquery-3.1.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
