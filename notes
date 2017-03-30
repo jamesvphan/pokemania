@@ -59,27 +59,11 @@ Pokemon Model
 -stats [One Stat Object]
 -sprite
 -team
-[
   -weak_to [Type string, Type, string]
   -not_weak_to
   -super_effective
   -not_very_effective
-]
-
-Stats
--speed
--special-attack
--special-defense
--defense
--attack
--hp
 
 
 Type Model
 -name
--double_damage_to
--double_damage_from
--half_damage_to
--half_damage_from
--no_damage_to
--no_damage_from
