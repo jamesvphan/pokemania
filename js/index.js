@@ -131,7 +131,7 @@ const Type = (function() {
 //   }
 //   $(poke_element).parent().empty()
 // }
-//
+
 // // function that returns matchups of both teams of pokemon
 // function pokeBattle() {
 //   var matches = []

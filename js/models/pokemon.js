@@ -12,8 +12,18 @@ class Pokemon {
     this.not_very_effective = not_very_effective
   }
   static intialize(numOrName, team) {
-    return Api.getJSON(`pokemon/${numOrName.toLowerCase()}`).
-    then((pokemon) => {
+    if (store.findPokemon("pokemon", numOrName)) {
+      return new Promise((resolve) => {
+        resolve(store.findPokemon("pokemon", numOrName))
+      })
+    } else {
+      return Api.getJSON(`pokemon/${numOrName.toLowerCase()}`)
+                .then((pokemon) => {
+                  store.addPokemon("pokemon", pokemon)
+                  return pokemon
+                })
+    }
+    .then((pokemon) => {
       var sprite = `https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/${pokemon.name}.gif`
       var types = pokemon.types.map(function(ptype) {
         return allTypes.filter(function(type) {
@@ -21,7 +31,7 @@ class Pokemon {
         })[0]
       })
       var pokemon = new Pokemon(pokemon.id, pokemon.name, types, pokemon.stats, sprite, team, [], [], [], [])
-      pushToTeam(pokemon)
+      Roster.addPokemon(pokemon)
       addDamageRelations(pokemon)
       removeDuplicates(pokemon)
       return pokemon
@@ -57,16 +67,5 @@ function addDamageRelations(pokemon) {
     for (var k = 0; k < type.damage_relations.no_damage_to.length; k++) {
       pokemon.not_very_effective.push(type.damage_relations.no_damage_to[k].name)
     }
-  }
-}
-
-// TODO refactor to match "roster class"
-function pushToTeam(pokemon) {
-  if (pokemon.team == 1) {
-    your_roster.push(pokemon)
-    allPokes.push(pokemon)
-  } else {
-    enemy_roster.push(pokemon)
-    allPokes.push(pokemon)
   }
 }
