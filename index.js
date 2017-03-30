@@ -82,20 +82,21 @@ $(function() {
     } else if (team == 2 && enemy_roster.length >= 6) {
       alert("Your roster is maxed out!")
     } else {
-      Pokemon.intialize(input, team).
-      then(function(pokemon){
-        if (pokemon.team == 1){
-          var div = 'pokemon'
-        } else {
-          var div = 'matchup'
-        }
-        let data_attr = `data-team="${div}" data-toggle="popover" data-html="true" data-placement="bottom" data-content="" data-pokemon-name='${pokemon.name}' data-roster=${div}`
-        let title = `title=${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}`
-        let events = `onclick="pokemonInfo(this, '${pokemon.name}')"`
+        Pokemon.intialize(input, team).
+        then(function(pokemon){
+          if (pokemon.team == 1){
+            var div = 'pokemon'
+          } else {
+            var div = 'matchup'
+          }
+          let data_attr = `data-team="${div}" data-toggle="popover" data-html="true" data-placement="bottom" data-content="" data-pokemon-name='${pokemon.name}' data-roster=${div}`
+          let title = `title=${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}`
+          let events = `onclick="pokemonInfo(this, '${pokemon.name}')"`
 
-        let a_tag = `<a href='#' ${data_attr} ${title} ${events}>`
-        $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
-      })
+          let a_tag = `<a href='#' ${data_attr} ${title} ${events}>`
+          $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
+        })
+
       $("#numOrName").val('')
     }
   })
