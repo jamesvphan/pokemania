@@ -48,4 +48,10 @@ body.loading {
 
 body.loading .modal {
     display: block;
+
+.popover-footer {
+  padding: 6px 14px;
+  background-color: #f7f7f7;
+  border-top: 1px solid #ebebeb;
+  text-align: right;
 }
