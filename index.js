@@ -96,7 +96,6 @@ $(function() {
           let a_tag = `<a href='#' ${data_attr} ${title} ${events}>`
           $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
         })
-
       $("#numOrName").val('')
     }
   })
@@ -132,6 +131,7 @@ function pokeBattle() {
     var yourvsenemyscore = 0
     for (var j = 0; j < enemy_roster.length; j++) {
       var epoke = enemy_roster[j]
+
       for (var k = 0; k < ypoke.weak_to.length; k++) {
         var yweak = ypoke.weak_to[k]
         for (var l = 0; l < epoke.types.length; l++) {
@@ -195,6 +195,7 @@ function grabPokemon(name) {
 function pokemonInfo(element, name) {
   let position
   let pokemon = grabPokemon(name)
+
   let poke_types = pokemon.types.map(function(type_obj){
     return type_obj.name
   })
@@ -213,7 +214,6 @@ function pokemonInfo(element, name) {
     template: `<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-footer"><a href="#" data-team=${element.dataset.team} data-pokemon-name=${name} class="btn evolve btn-primary btn-sm">Evolve!</a><a href="#" class="btn exit btn-danger btn-sm">Remove</a></div></div>`
    })
   $('[data-toggle="popover"]').attr("data-content", `Type: ${poke_types.join(", ")}<br>${poke_stats.join("<br>")}`)
-
 }
 
 // takes pokemon_obj and creates <a> element with attributes from pokemon_obj to be displayed on page
@@ -267,3 +267,4 @@ $(document).on("click", ".popover-footer .btn.evolve" , function(){
   }
   $(this).parents(".popover").popover('hide');
 });
+
