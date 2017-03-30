@@ -16,7 +16,41 @@ h3 {
   padding-bottom: 10px;
 }
 
-.popover-footer{
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 0, 0, 0, .5 )
+                50% 50%
+                no-repeat;
+}
+
+#loading {
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 0, 0, 0, .5 )
+              url('https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/magikarp.gif')
+              50% 50%
+              no-repeat;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .modal {
+
+    display: block;
+}
+.popover-footer {
   padding: 6px 14px;
   background-color: #f7f7f7;
   border-top: 1px solid #ebebeb;
