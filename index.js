@@ -89,6 +89,8 @@ $(function() {
       $("#numOrName").val('')
     }
   })
+})
+
 
 
 function pokemonInfo(element, name) {
