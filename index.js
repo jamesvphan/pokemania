@@ -208,6 +208,20 @@ function pokemonInfo(element, name) {
 
 }
 
+function createPokemonLink(pokemon_obj) {
+  if (pokemon_obj.team == "pokemon"){
+    var div = 'pokemon'
+  } else {
+    var div = 'matchup'
+  }
+  let data_attr = `data-team="${div}" data-toggle="popover" data-html="true" data-placement="bottom" data-content="" data-pokemon-name='${pokemon_obj.name}' data-roster=${div}`
+  let title = `title=${pokemon_obj.name[0].toUpperCase() + pokemon_obj.name.slice(1)}`
+  let events = `onclick="pokemonInfo(this, '${pokemon_obj.name}')"`
+
+  let a_tag = `<a href='#' ${data_attr} ${title} ${events}>`
+  $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon_obj.sprite + "></a>")
+}
+
 $(document).on("click", ".popover-footer .btn.exit", function(){
   //debugger
   removePokemon($(this).parent().parent().parent().children()[0])
@@ -216,8 +230,7 @@ $(document).on("click", ".popover-footer .btn.exit", function(){
 
 $(document).on("click", ".popover-footer .btn.evolve" , function(){
   // find the pokemon in all Pokes
-  let name = $(this)[0].dataset.pokemonName
-  var old_pokemon = grabPokemon(name)
+  var old_pokemon = grabPokemon($(this)[0].dataset.pokemonName)
   // find the next evolution
   if (evo[old_pokemon.name] == undefined) {
     // if pokemon evolution doesn't exist
@@ -231,39 +244,15 @@ $(document).on("click", ".popover-footer .btn.evolve" , function(){
       removePokemon(old)
       Pokemon.intialize(evo[old_pokemon.name][index], $(this)[0].dataset.team).
       then(function(pokemon){
-        debugger
-        if (pokemon.team == "pokemon"){
-          var div = 'pokemon'
-        } else {
-          var div = 'matchup'
-        }
-        let data_attr = `data-team="${div}" data-toggle="popover" data-html="true" data-placement="bottom" data-content="" data-pokemon-name='${pokemon.name}' data-roster=${div}`
-        let title = `title=${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}`
-        let events = `onclick="pokemonInfo(this, '${pokemon.name}')"`
-
-        let a_tag = `<a href='#' ${data_attr} ${title} ${events}>`
-        debugger
-        $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
+        createPokemonLink(pokemon)
       })
-
     } else {
       // evolve pokemon
       var old = $(this).parent().parent().parent().children()[0]
       removePokemon(old)
       Pokemon.intialize(evo[old_pokemon.name][0], $(this)[0].dataset.team).
       then(function(pokemon){
-        if (pokemon.team == "pokemon"){
-          var div = 'pokemon'
-        } else {
-          var div = 'matchup'
-        }
-        let data_attr = `data-team="${div}" data-toggle="popover" data-html="true" data-placement="bottom" data-content="" data-pokemon-name='${pokemon.name}' data-roster=${div}`
-        let title = `title=${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}`
-        let events = `onclick="pokemonInfo(this, '${pokemon.name}')"`
-
-        let a_tag = `<a href='#' ${data_attr} ${title} ${events}>`
-
-        $('.container').find(`.${div}:empty:first`).html(a_tag + "<img src=" + pokemon.sprite + "></a>")
+        createPokemonLink(pokemon)
       })
     }
   }
