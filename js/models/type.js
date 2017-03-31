@@ -4,7 +4,7 @@ const Type = (function() {
   let numTypes = 18
   return class Type {
     static all(){
-      if (store.findTypes()) {
+      if (!!store.findTypes()[0]) {
         return new Promise((resolve) => {
           resolve(store.findTypes())
         })

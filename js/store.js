@@ -8,22 +8,25 @@ class Store {
     this.state[resource][object.id] = object
   }
   addTypes(object) {
-    this.state["types"] = this.state["types"] || {}
+    this.state["types"] = this.state["types"] || []
     this.state["types"] = object
   }
   findPokemon(resource, numOrName) {
-    var pokemon = Object.values(store.pokemon).filter(function(ele) {
-        return ele.name == name
-      })[0]
-    var id = pokemon.id
+    if (isNaN(numOrName)) {
+      var pokemon = Object.values(store.pokemon).filter(function(ele) {
+          return ele.name == name
+        })[0]
+      var id = `${pokemon.id}`
+    } else {
+      var id = numOrName
+    }
     this.state[resource] = this.state[resource] || {}
     return this.state[resource][id]
   }
-  findType() {
-    this.state["types"] = this.state["types"] || {}
+  findTypes() {
+    this.state["types"] = this.state["types"] || []
     return this.state["types"]
   }
 }
 
-Object.values(store.pokemon).filter(function(ele) {
-    return ele.name == name})[0].id
+let store = new Store()

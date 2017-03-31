@@ -11,10 +11,13 @@ class Pokemon {
     this.super_effective = super_effective,
     this.not_very_effective = not_very_effective
   }
-  static intialize(numOrName, team) {
+  static initialize(numOrName, team) {
     if (store.findPokemon("pokemon", numOrName)) {
       return new Promise((resolve) => {
         resolve(store.findPokemon("pokemon", numOrName))
+      })
+      .then((pokemon) => {
+        return mutate(pokemon, team)
       })
     } else {
       return Api.getJSON(`pokemon/${numOrName.toLowerCase()}`)
@@ -22,21 +25,25 @@ class Pokemon {
                   store.addPokemon("pokemon", pokemon)
                   return pokemon
                 })
+                .then((pokemon) => {
+                  return mutate(pokemon, team)
+                })
     }
-    .then((pokemon) => {
-      var sprite = `https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/${pokemon.name}.gif`
-      var types = pokemon.types.map(function(ptype) {
-        return allTypes.filter(function(type) {
-          return type.name == ptype.type.name
-        })[0]
-      })
-      var pokemon = new Pokemon(pokemon.id, pokemon.name, types, pokemon.stats, sprite, team, [], [], [], [])
-      Roster.addPokemon(pokemon)
-      addDamageRelations(pokemon)
-      removeDuplicates(pokemon)
-      return pokemon
-    })
   }
+}
+
+function mutate(pokemon, team) {
+  var sprite = `https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/${pokemon.name}.gif`
+  var types = pokemon.types.map(function(ptype) {
+    return store.findTypes().filter(function(type) {
+      return type.name == ptype.type.name
+    })[0]
+  })
+  var pokemon = new Pokemon(pokemon.id, pokemon.name, types, pokemon.stats, sprite, team, [], [], [], [])
+  debugger
+  addDamageRelations(pokemon)
+  removeDuplicates(pokemon)
+  return pokemon
 }
 
 function removeDuplicates(pokemon) {
@@ -49,6 +56,10 @@ function removeDuplicates(pokemon) {
 function addDamageRelations(pokemon) {
   for (var j = 0; j < pokemon.types.length; j++) {
     var type = pokemon.types[j]
+    // pokemon.weak_to.push(type.damage_relations.double_damage_from.map(d => d.name)
+    // Object.keys(type.damage_relations).forEach((damageType) => {
+    //   pokemon.weak_to.push(type.damage_relations[damageType].map(d => d.name)
+    // })
     for (var k = 0; k < type.damage_relations.double_damage_from.length; k++) {
       pokemon.weak_to.push(type.damage_relations.double_damage_from[k].name)
     }

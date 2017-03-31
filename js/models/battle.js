@@ -1,4 +1,16 @@
 class Battle {
+  constructor(your_roster, enemy_roster) {
+    this.your_roster = your_roster
+    this.enemy_roster = enemy_roster
+  }
+
+  addToEnemyRoster(pokemon){
+    this.enemy_roster.addPokemon(pokemon)
+  }
+  addToYourRoster(pokemon){
+
+  }
+
   pokeBattle() {
     var matches = []
     var score = 0

@@ -3,13 +3,7 @@ class Roster {
     this.pokemon = []
   }
   static addPokemon(pokemon) {
-    if (pokemon.team == 1) {
-      your_roster.pokemon.push(pokemon)
-      allPokes.pokemon.push(pokemon)
-    } else {
-      enemy_roster.pokemon.push(pokemon)
-      allPokes.pokemon.push(pokemon)
-    }
+    this.pokemon.push(pokemon)
   }
   static removePokemon(poke_element) {
     let el = poke_element
