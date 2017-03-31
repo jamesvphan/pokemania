@@ -157,3 +157,8 @@ body.loading .modal {
 	background-color: #7038F8;
 	border: 1px solid #4924A1;
 }
+
+.fairy {
+  background-color: #f2d4d4;
+  border: 1px solid #f2d4d4;
+}

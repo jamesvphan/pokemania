@@ -2,6 +2,7 @@
 
 // On clicking button to add pokemon, creates a new Pokemon object, and displays respective <a> element
 function plsWork(object) {
+  // submit controller
   $(".pokeSubmit").on("click", function() {
     event.preventDefault()
     var input = $("#numOrName").val()
@@ -35,11 +36,13 @@ function plsWork(object) {
 }
 
 function plsBattle() {
+  //battle controller
   $("#dispBattle").on("click", function() {
     let battle = new Battle(store.state.your_roster, store.state.enemy_roster)
     var results = battle.pokeBattle()
     var matches = jQuery.unique(results[0]).sort()
     var winner = results[1]
+    //battle view
     $('.modal-body').html(matches.join("<br>") + "<br>" + "<strong>" + winner + "</strong>")
     $('#myModal').modal('show');
   })
@@ -47,11 +50,13 @@ function plsBattle() {
 
 
 // takes pokemon name and returns Pokemon object from allPokes array
+// helper function
 function grabPokemon(name) {
   return store.findPokemon("pokemon", name)
 }
 
 // takes <a> element and name from <a> element, and makes request to return stats of pokemon
+// display info controller
 function pokemonInfo(element, name) {
   let pokemon = grabPokemon(name)
   let poke_types = pokemon.types.map(function(type_obj){
@@ -60,6 +65,7 @@ function pokemonInfo(element, name) {
   let poke_stats = pokemon.stats.map(function(stat_obj){
     return `<strong>${stat_obj.stat.name}:</strong> ${stat_obj.base_stat}`
   })
+  // display info view
   $('[data-toggle="popover"]').popover({
     placement : "top",
     trigger: 'click',
@@ -78,6 +84,7 @@ function createTypeElement(types) {
 }
 // takes pokemon_obj and creates <a> element with attributes from pokemon_obj to be displayed on page
 function createPokemonLink(pokemon_obj) {
+  // 
   if (pokemon_obj.team == 1){
     var div = 'pokemon'
   } else {
