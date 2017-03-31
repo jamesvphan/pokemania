@@ -13,8 +13,8 @@ class Store {
   }
   findPokemon(resource, numOrName) {
     if (isNaN(numOrName)) {
-      var pokemon = Object.values(store.pokemon).filter(function(ele) {
-          return ele.name == name
+      var pokemon = Object.values(store.state.pokemon).filter(function(ele) {
+          return ele.name == numOrName
         })[0]
       var id = `${pokemon.id}`
     } else {

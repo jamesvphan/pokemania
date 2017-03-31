@@ -46,7 +46,7 @@ function grabPokemon(name) {
 function pokemonInfo(element, name) {
   let pokemon = grabPokemon(name)
   let poke_types = pokemon.types.map(function(type_obj){
-    return type_obj.name
+    return type_obj.type.name
   })
   let poke_stats = pokemon.stats.map(function(stat_obj){
     return `<strong>${stat_obj.stat.name}:</strong> ${stat_obj.base_stat}`
@@ -84,7 +84,7 @@ function createPokemonLink(pokemon_obj) {
 
 // on popover, calls removePokemon if remove button is clicked
 $(document).on("click", ".popover-footer .btn.exit", function(){
-  removePokemon($(this).parent().parent().parent().children()[0])
+  Roster.removePokemon($(this).parent().parent().parent().children()[0])
 });
 
 // on popover, "evolves" pokemon by replacing current Pokemon with evolved form, using evo obj as reference to pokemon evolution chains

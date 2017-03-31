@@ -40,7 +40,6 @@ function mutate(pokemon, team) {
     })[0]
   })
   var pokemon = new Pokemon(pokemon.id, pokemon.name, types, pokemon.stats, sprite, team, [], [], [], [])
-  debugger
   addDamageRelations(pokemon)
   removeDuplicates(pokemon)
   return pokemon
