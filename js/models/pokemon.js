@@ -17,7 +17,13 @@ class Pokemon {
         resolve(store.findPokemon("pokemon", numOrName))
       })
       .then((pokemon) => {
-        return mutate(pokemon, team)
+        var pokemon = mutate(pokemon, team)
+        if (team == 1) {
+          store.state.your_roster.push(pokemon)
+        } else {
+          store.state.enemy_roster.push(pokemon)
+        }
+        return pokemon
       })
     } else {
       return Api.getJSON(`pokemon/${numOrName.toLowerCase()}`)
@@ -26,7 +32,13 @@ class Pokemon {
                   return pokemon
                 })
                 .then((pokemon) => {
-                  return mutate(pokemon, team)
+                  var pokemon = mutate(pokemon, team)
+                  if (team == 1) {
+                    store.state.your_roster.push(pokemon)
+                  } else {
+                    store.state.enemy_roster.push(pokemon)
+                  }
+                  return pokemon
                 })
     }
   }

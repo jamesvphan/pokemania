@@ -16,7 +16,10 @@ $(() => {
   .then((types) => {
     var $where = $(".pokeSubmit")
     let psController = new PokemonSearchController($where, types)
-    plsWork(psController)
+    plsWork()
+    plsRemove()
+    plsEvolve()
+    plsBattle()
     // Creates 2 rosters
     // binds events to button clicks
   })

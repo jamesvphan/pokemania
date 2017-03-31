@@ -3,21 +3,13 @@ class Battle {
     this.your_roster = your_roster
     this.enemy_roster = enemy_roster
   }
-
-  addToEnemyRoster(pokemon){
-    this.enemy_roster.addPokemon(pokemon)
-  }
-  addToYourRoster(pokemon){
-
-  }
-
   pokeBattle() {
     var matches = []
     var score = 0
-    for (var i = 0; i < your_roster.pokemon.length; i++) {
-      var ypoke = your_roster[i]
-      for (var j = 0; j < enemy_roster.pokemon.length; j++) {
-        var epoke = enemy_roster[j]
+    for (var i = 0; i < this.your_roster.length; i++) {
+      var ypoke = this.your_roster[i]
+      for (var j = 0; j < this.enemy_roster.length; j++) {
+        var epoke = this.enemy_roster[j]
         var yourscore = ypoke.stats.reduce(function(total, stat) {
           return total + stat.base_stat
         }, 0)

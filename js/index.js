@@ -10,9 +10,9 @@ function plsWork(object) {
     } else {
       var team = 2
     }
-    if (team == 1 && object.your_roster.pokemon.length >= 6) {
+    if (team == 1 && store.state.your_roster.length >= 6) {
       alert("Your roster is maxed out!")
-    } else if (team == 2 && object.enemy_roster.pokemon.length >= 6) {
+    } else if (team == 2 && store.state.enemy_roster.length >= 6) {
       alert("The enemy roster is maxed out!")
     } else {
       Pokemon.initialize(input, team).
@@ -34,7 +34,16 @@ function plsWork(object) {
   })
 }
 
-
+function plsBattle() {
+  $("#dispBattle").on("click", function() {
+    let battle = new Battle(store.state.your_roster, store.state.enemy_roster)
+    var results = battle.pokeBattle()
+    var matches = jQuery.unique(results[0]).sort()
+    var winner = results[1]
+    $('.modal-body').html(matches.join("<br>") + "<br>" + "<strong>" + winner + "</strong>")
+    $('#myModal').modal('show');
+  })
+}
 
 
 // takes pokemon name and returns Pokemon object from allPokes array
@@ -69,7 +78,7 @@ function createTypeElement(types) {
 }
 // takes pokemon_obj and creates <a> element with attributes from pokemon_obj to be displayed on page
 function createPokemonLink(pokemon_obj) {
-  if (pokemon_obj.team == "pokemon"){
+  if (pokemon_obj.team == 1){
     var div = 'pokemon'
   } else {
     var div = 'matchup'
@@ -83,38 +92,66 @@ function createPokemonLink(pokemon_obj) {
 }
 
 // on popover, calls removePokemon if remove button is clicked
-$(document).on("click", ".popover-footer .btn.exit", function(){
-  Roster.removePokemon($(this).parent().parent().parent().children()[0])
-});
+function plsRemove() {
+  $(document).on("click", ".popover-footer .btn.exit", function(){
+    var poke_element = $(this).parent().parent().parent().children()[0]
+    remove(poke_element)
+  });
+}
 
 // on popover, "evolves" pokemon by replacing current Pokemon with evolved form, using evo obj as reference to pokemon evolution chains
-$(document).on("click", ".popover-footer .btn.evolve" , function(){
-  // find the pokemon in all Pokes
-  var old_pokemon = grabPokemon($(this)[0].dataset.pokemonName)
-  // find the next evolution
-  if (evo[old_pokemon.name] == undefined) {
-    // if pokemon evolution doesn't exist
-    alert(`${old_pokemon.name[0].toUpperCase() + old_pokemon.name.slice(1)} does not evolve anymore.`)
-  } else {
-    // if pokemon exists
-    if (evo[old_pokemon.name].length > 1) {
-      // check if pokemon can evolve into more than one pokemon and randomly choose one
-      let index = Math.floor(Math.random() * evo[old_pokemon.name].length)
-      var old = $(this).parent().parent().parent().children()[0]
-      removePokemon(old)
-      Pokemon.intialize(evo[old_pokemon.name][index], $(this)[0].dataset.team).
-      then(function(pokemon){
-        createPokemonLink(pokemon)
-      })
+function plsEvolve() {
+  $(document).on("click", ".popover-footer .btn.evolve" , function(){
+    // find the pokemon in all Pokes
+    var old_pokemon = grabPokemon($(this)[0].dataset.pokemonName)
+    // find the next evolution
+    if (evo[old_pokemon.name] == undefined) {
+      // if pokemon evolution doesn't exist
+      alert(`${old_pokemon.name[0].toUpperCase() + old_pokemon.name.slice(1)} does not evolve anymore.`)
     } else {
-      // evolve pokemon
-      var old = $(this).parent().parent().parent().children()[0]
-      removePokemon(old)
-      Pokemon.intialize(evo[old_pokemon.name][0], $(this)[0].dataset.team).
-      then(function(pokemon){
-        createPokemonLink(pokemon)
-      })
+      // if pokemon exists
+      if (evo[old_pokemon.name].length > 1) {
+        // check if pokemon can evolve into more than one pokemon and randomly choose one
+        let index = Math.floor(Math.random() * evo[old_pokemon.name].length)
+        var old = $(this).parent().parent().parent().children()[0]
+        remove(old)
+        if ($(this)[0].dataset.team == "pokemon") {
+          var team = 1
+        } else {
+          var team = 2
+        }
+        Pokemon.initialize(evo[old_pokemon.name][index], team).
+        then(function(pokemon){
+          createPokemonLink(pokemon)
+        })
+      } else {
+        // evolve pokemon
+        var old = $(this).parent().parent().parent().children()[0]
+        remove(old)
+        if ($(this)[0].dataset.team == "pokemon") {
+          var team = 1
+        } else {
+          var team = 2
+        }
+        Pokemon.initialize(evo[old_pokemon.name][0], team).
+        then(function(pokemon){
+          createPokemonLink(pokemon)
+        })
+      }
     }
+    $(this).parents(".popover").popover('hide');
+  });
+}
+
+function remove(poke_element) {
+  if (poke_element.dataset.team == "pokemon") {
+    var pokemon = store.state.your_roster.filter((pokemon) => pokemon.name == poke_element.dataset.pokemonName)
+    var index = store.state.your_roster.indexOf(pokemon)
+    store.state.your_roster.splice(index, 1)
+  } else {
+    var pokemon = store.state.enemy_roster.filter((pokemon) => pokemon.name == poke_element.dataset.pokemonName)
+    var index = store.state.enemy_roster.indexOf(pokemon)
+    store.state.enemy_roster.splice(index, 1)
   }
-  $(this).parents(".popover").popover('hide');
-});
+  $(poke_element).parent().empty()
+}

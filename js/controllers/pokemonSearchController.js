@@ -2,8 +2,6 @@ class PokemonSearchController {
   constructor($target, types) {
     this.$target = $target
     this.types = types
-    this.your_roster = new Roster()
-    this.enemy_roster = new Roster()
     this.attachListeners()
   }
   attachListeners(){
@@ -11,14 +9,14 @@ class PokemonSearchController {
       // take the search value, search,
       Pokemon.initialize(input, "your-roster")
       .then((pokemon) => {
-        your_roster.addPokemon(pokemon)
+        store.state.your_roster.push(pokemon)
       })
     })
     this.$target.find("enemy-roster").on('click', () => {
       // take the search value, search,
       Pokemon.initialize(input, "enemy-roster")
       .then((pokemon) => {
-        enemy_roster.addPokemon(pokemon)
+        store.state.enemy_roster.push(pokemon)
       })
     })
   }
