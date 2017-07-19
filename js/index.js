@@ -28,7 +28,7 @@ class Pokemon {
   static intialize(numOrName, team) {
     return $.get(`https://pokeapi.co/api/v2/pokemon/${numOrName.toLowerCase()}`).
     then((pokemon) => {
-      var sprite = `https://assets-lmcrhbacy2s.stackpathdns.com/img/pokemon/animated/${pokemon.name}.gif`
+      var sprite = `https://assets.thesilphroad.com/img/pokemon/animated/${pokemon.name}.gif`
       var types = pokemon.types.map(function(ptype) {
         return allTypes.filter(function(type) {
           return type.name == ptype.type.name
